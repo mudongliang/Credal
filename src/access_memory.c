@@ -42,7 +42,36 @@ int value_of_register(char * reg, Elf32_Addr* value, struct elf_prstatus thread)
         match = 1;
         goto out;
     }
-    // rewrite it with switch case
+    if(strcmp(reg, "ecx") == 0){
+        *value = thread.pr_reg[ECX];
+        match = 1;
+        goto out;
+    }
+    if(strcmp(reg, "edx") == 0){
+        *value = thread.pr_reg[EDX];
+        match = 1;
+        goto out;
+    }
+    if(strcmp(reg, "esi") == 0){
+        *value = thread.pr_reg[ESI];
+        match = 1;
+        goto out;
+    }
+    if(strcmp(reg, "edi") == 0){
+        *value = thread.pr_reg[EDI];
+        match = 1;
+        goto out;
+    }
+    if(strcmp(reg, "ebp") == 0){
+        *value = thread.pr_reg[EBP];
+        match = 1;
+        goto out;
+    }
+    if(strcmp(reg, "esp") == 0){
+        *value = thread.pr_reg[ESP];
+        match = 1;
+        goto out;
+    }
 out: 
 	return match; 
 }
