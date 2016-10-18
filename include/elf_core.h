@@ -5,8 +5,8 @@
 #include <gelf.h>
 #include <libelf.h>
 #include <elf.h>
+#include <sys/reg.h>
 #include "common.h"
-#include "register.h"
 
 typedef struct nt_file_info_struct{
     Elf32_Addr start, end, pos;
