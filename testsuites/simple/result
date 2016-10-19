@@ -1,54 +1,53 @@
-DEBUG: elf object
+DEBUG: ELF Object
 STATE: Parsing Core File: testsuites/simple/core
-DEBUG: the number of segment in the code file is 17
-======================DEBUG: Info of the number 1 thread ================
+DEBUG: The number of segment in the core file is 17
+DEBUG: Info of No.1 thread
 DEBUG: The number of pending signal is 0xb
-DEBUG: register value : 0x0
-DEBUG: register value : 0x5b6409f3
-DEBUG: register value : 0x41
-DEBUG: register value : 0xb7764000
-DEBUG: register value : 0xb7764000
-DEBUG: register value : 0xbfbdfce8
-DEBUG: register value : 0xbfbe4143
-DEBUG: register value : 0x7b
-DEBUG: register value : 0x7b
-DEBUG: register value : 0x0
-DEBUG: register value : 0x33
-DEBUG: register value : 0xffffffff
-DEBUG: register value : 0x804840e
-DEBUG: register value : 0x73
-DEBUG: register value : 0x10282
-DEBUG: register value : 0xbfbdfcc8
-DEBUG: register value : 0x7b
-DEBUG: One mapped file name is /home/pt/mdl/simple/simple, start 8048000, end 8049000,position 0
-DEBUG: One mapped file name is /home/pt/mdl/simple/simple, start 8049000, end 804a000,position 0
-DEBUG: One mapped file name is /home/pt/mdl/simple/simple, start 804a000, end 804b000,position 1
-DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start b75b2000, end b7761000,position 0
-DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start b7761000, end b7762000,position 1af
-DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start b7762000, end b7764000,position 1af
-DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start b7764000, end b7765000,position 1b1
-DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start b7785000, end b77a7000,position 0
-DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start b77a8000, end b77a9000,position 22
-DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start b77a9000, end b77aa000,position 23
+DEBUG: Register value - 0x0
+DEBUG: Register value - 0x5b6409f3
+DEBUG: Register value - 0x41
+DEBUG: Register value - 0xb7764000
+DEBUG: Register value - 0xb7764000
+DEBUG: Register value - 0xbfbdfce8
+DEBUG: Register value - 0xbfbe4143
+DEBUG: Register value - 0x7b
+DEBUG: Register value - 0x7b
+DEBUG: Register value - 0x0
+DEBUG: Register value - 0x33
+DEBUG: Register value - 0xffffffff
+DEBUG: Register value - 0x804840e
+DEBUG: Register value - 0x73
+DEBUG: Register value - 0x10282
+DEBUG: Register value - 0xbfbdfcc8
+DEBUG: Register value - 0x7b
+DEBUG: One mapped file name is /home/pt/mdl/simple/simple, start from 0x8048000, end at 0x8049000, position is 0x0
+DEBUG: One mapped file name is /home/pt/mdl/simple/simple, start from 0x8049000, end at 0x804a000, position is 0x0
+DEBUG: One mapped file name is /home/pt/mdl/simple/simple, start from 0x804a000, end at 0x804b000, position is 0x1
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start from 0xb75b2000, end at 0xb7761000, position is 0x0
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start from 0xb7761000, end at 0xb7762000, position is 0x1af
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start from 0xb7762000, end at 0xb7764000, position is 0x1af
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start from 0xb7764000, end at 0xb7765000, position is 0x1b1
+DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start from 0xb7785000, end at 0xb77a7000, position is 0x0
+DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start from 0xb77a8000, end at 0xb77a9000, position is 0x22
+DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start from 0xb77a9000, end at 0xb77aa000, position is 0x23
 STATE: Process Binary Files Mapped into Address Spapce
-DEBUG: the number of different binary files is 3
-STATE: === Processing Binary File simple 
-Processing binary file: testsuites/simple/simple
-DEBUG: elf object
-DEBUG: the program headers for binary testsuites/simple/simple contain 9 entries
-DEBUG: the file name is testsuites/simple/simple The base address is 8048000 and the end address is 804b000
-STATE: === Processing Binary File libc-2.23.so 
-Processing binary file: testsuites/simple/libc-2.23.so
-DEBUG: elf object
-DEBUG: the program headers for binary testsuites/simple/libc-2.23.so contain 10 entries
-DEBUG: the file name is testsuites/simple/libc-2.23.so The base address is b75b2000 and the end address is b7765000
-STATE: === Processing Binary File ld-2.23.so 
-Processing binary file: testsuites/simple/ld-2.23.so
-DEBUG: elf object
-DEBUG: the program headers for binary testsuites/simple/ld-2.23.so contain 7 entries
-DEBUG: the file name is testsuites/simple/ld-2.23.so The base address is b7785000 and the end address is b77aa000
+DEBUG: The number of different binary files is 3
+STATE: Processing Binary File - simple 
+DEBUG: Processing Binary File - testsuites/simple/simple
+DEBUG: ELF Object
+DEBUG: The program headers for binary testsuites/simple/simple contain 9 entries
+DEBUG: The file name is testsuites/simple/simple. The base address is 0x8048000 and the end address is 0x804b000
+STATE: Processing Binary File - libc-2.23.so 
+DEBUG: Processing Binary File - testsuites/simple/libc-2.23.so
+DEBUG: ELF Object
+DEBUG: The program headers for binary testsuites/simple/libc-2.23.so contain 10 entries
+DEBUG: The file name is testsuites/simple/libc-2.23.so. The base address is 0xb75b2000 and the end address is 0xb7765000
+STATE: Processing Binary File - ld-2.23.so 
+DEBUG: Processing Binary File - testsuites/simple/ld-2.23.so
+DEBUG: ELF Object
+DEBUG: The program headers for binary testsuites/simple/ld-2.23.so contain 7 entries
+DEBUG: The file name is testsuites/simple/ld-2.23.so. The base address is 0xb7785000 and the end address is 0xb77aa000
 STATE: Determining The Thread Leading To Crash
-Evedence: === The PC Value Is 804840e
-Evidence: === The PC Pointing To Instruction Is movzx	eax, [eax]. It Is Accessing Illegal Address
+Evidence: The PC Value Is 804840e
+Evidence: The instruction to which PC points is movzx	eax, [eax]. It Is Accessing Illegal Address
 DEBUG: The number of the crashing thread is 0
-crash thread is 0

@@ -87,7 +87,7 @@ off_t get_offset_from_address(elf_core_info* core_info, Elf32_Addr address){
 	// this area is not really mapped into the address space
 	if (core_info->phdr[segment].p_memsz != core_info->phdr[segment].p_filesz){
 #ifdef DEBUG
-		fprintf(stdout, "DEBUG: the memsize is %u, and the file size is %u\n",
+		fprintf(stdout, "DEBUG: The memsize is %u, and the file size is %u\n",
                 (unsigned int)core_info->phdr[segment].p_memsz,
                 (unsigned int)core_info->phdr[segment].p_filesz);
 #endif 
@@ -173,7 +173,7 @@ int get_data_from_specified_file(elf_core_info* core_info, elf_binary_info* bin_
 		goto out;
 
 #ifdef DEBUG
-	fprintf(stdout, "DEBUG: the file mapped to address %u is %s\n", address, file_path);	
+	fprintf(stdout, "DEBUG: The file mapped to address %u is %s\n", address, file_path);	
 #endif
 	offset = (address-reduce) - target_file->phdr[phdr_num].p_vaddr +  target_file->phdr[phdr_num].p_offset;
 	if (( fd = open ( file_path , O_RDONLY , 0)) < 0){

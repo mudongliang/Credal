@@ -56,7 +56,7 @@ int count_bin_file_num(core_nt_file_info nt_file_info){
 		}		
 	}
 #ifdef DEBUG
-	fprintf(stdout, "DEBUG: the number of different binary files is %d\n", num);
+	fprintf(stdout, "DEBUG: The number of different binary files is %d\n", num);
 #endif
 	return num; 
 }
@@ -119,7 +119,7 @@ int process_one_bin_file(char* bin_name, individual_binary_info* bin_info){
 	char full_path[FILE_NAME_SIZE]; 
     // please check if the summit of the path size and the file size exceeds the size limit 
 #ifdef LOG_STATE
-	fprintf(stdout, "STATE: === Processing Binary File %s \n", bin_name);	
+	fprintf(stdout, "STATE: Processing Binary File - %s \n", bin_name);	
 #endif
     // check whether it is a binary or library
 	memset(full_path, 0, FILE_NAME_SIZE);
@@ -143,12 +143,12 @@ int process_one_bin_file(char* bin_name, individual_binary_info* bin_info){
 process_bin:
 
 #ifdef DEBUG
-	fprintf(stdout, "DEBUG: Processing binary file: %s\n", full_path);
+	fprintf(stdout, "DEBUG: Processing Binary File - %s\n", full_path);
 #endif
 
 	if(!get_header_from_binary(full_path, bin_info)){
 #ifdef DEBUG
-		fprintf(stderr, "DEBUG: the program headers for binary %s is not correctly parsed\n", full_path);
+		fprintf(stderr, "DEBUG: The program headers for binary %s is not correctly parsed\n", full_path);
 #endif
 		bin_info->phdr = NULL;
 		bin_info->phdr_num = 0;
@@ -157,7 +157,7 @@ process_bin:
 	}
 
 #ifdef DEBUG
-    fprintf(stdout, "DEBUG: the program headers for binary %s contain %d entries\n",
+    fprintf(stdout, "DEBUG: The program headers for binary %s contain %d entries\n",
             full_path, bin_info->phdr_num);
 #endif
 	memset(bin_info->bin_name, 0, FILE_NAME_SIZE);
@@ -202,7 +202,7 @@ int process_bin_files(core_nt_file_info nt_file_info,individual_binary_info* bin
 			binary_info_set[bin_num].base_address = file_start_address(nt_file_info, prev_name, nt_file_info.file_info[i].start);
 			binary_info_set[bin_num].end_address = file_end_address(nt_file_info, prev_name); 
 #ifdef DEBUG
-			fprintf(stdout, "DEBUG: the file name is %s The base address is %x and the end address is %x\n",
+			fprintf(stdout, "DEBUG: The file name is %s. The base address is 0x%x and the end address is 0x%x\n",
                     binary_info_set[bin_num].bin_name, 
                     binary_info_set[bin_num].base_address,
                     binary_info_set[bin_num].end_address);
@@ -226,10 +226,10 @@ int process_bin_files(core_nt_file_info nt_file_info,individual_binary_info* bin
 				binary_info_set[bin_num].base_address = file_start_address(nt_file_info, prev_name, nt_file_info.file_info[i].start);
 				binary_info_set[bin_num].end_address = file_end_address(nt_file_info, prev_name);
 #ifdef DEBUG
-      		    fprintf(stdout, "DEBUG: the file name is %s The base address is %x and the end address is %x\n",
-                        binary_info_set[bin_num].bin_name,
-                        binary_info_set[bin_num].base_address,
-                        binary_info_set[bin_num].end_address);
+      		    fprintf(stdout, "DEBUG: The file name is %s. The base address is 0x%x and the end address is 0x%x\n",
+                binary_info_set[bin_num].bin_name,
+                binary_info_set[bin_num].base_address,
+                binary_info_set[bin_num].end_address);
 #endif
 			}
 			else{

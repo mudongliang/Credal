@@ -17,13 +17,13 @@
 void print_elf_type(Elf_Kind ek){
     switch(ek){
         case ELF_K_AR:
-            fprintf(stdout, "DEBUG: archive\n");
+            fprintf(stdout, "DEBUG: Archive\n");
             break;
         case ELF_K_ELF:
-            fprintf(stdout, "DEBUG: elf object\n");
+            fprintf(stdout, "DEBUG: ELF Object\n");
             break;
         case ELF_K_NONE:
-            fprintf(stdout, "DEBUG: data\n");
+            fprintf(stdout, "DEBUG: Data\n");
             break;
         default:
             fprintf(stderr, "DEBUG: unrecognized\n");
@@ -134,11 +134,11 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
             memcpy(&core_info->note_info->core_thread.threads_status[thread_index], note_data, sizeof(struct elf_prstatus));
 #ifdef DEBUG	
     	    int reg_num = 0;
-    	    fprintf(stdout, "DEBUG: Info of the number %d thread\n", thread_index + 1);
+    	    fprintf(stdout, "DEBUG: Info of No.%d thread\n", thread_index + 1);
     	    fprintf(stdout, "DEBUG: The number of pending signal is 0x%x\n", 
                     core_info->note_info->core_thread.threads_status[thread_index].pr_info.si_signo);
     	    for(reg_num = 0; reg_num < ELF_NGREG; reg_num++){
-                fprintf(stdout, "DEBUG: register value : 0x%lx\n", 
+                fprintf(stdout, "DEBUG: Register value - 0x%lx\n", 
                         (unsigned long)core_info->note_info->core_thread.threads_status[thread_index].pr_reg[reg_num]);
             }
 #endif
@@ -174,7 +174,7 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
             }
 #ifdef DEBUG
     	    for(i=0; i<fn; i++)
-                fprintf(stdout, "DEBUG: One mapped file name is %s, start %x, end %x,position %x\n",
+                fprintf(stdout, "DEBUG: One mapped file name is %s, start from 0x%x, end at 0x%x, position is 0x%x\n",
                         core_info->note_info->core_file.file_info[i].name,
                         core_info->note_info->core_file.file_info[i].start,
                         core_info->note_info->core_file.file_info[i].end,
@@ -242,7 +242,7 @@ int process_segment(Elf* elf, elf_core_info* core_info){
     	return -1;
     }
 #ifdef DEBUG
-    fprintf(stdout, "DEBUG: the number of segment in the code file is %d\n", phdr_num);
+    fprintf(stdout, "DEBUG: The number of segment in the core file is %d\n", phdr_num);
 #endif
     core_info->phdr_num = phdr_num;
 

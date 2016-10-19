@@ -25,7 +25,9 @@ int main(int argc, char *argv[]){
         fprintf(stderr,"The binary file is not parsed correctly");
     
     int n = select_thread(core_info, binary_info);
-    printf("crash thread is %d\n", n);
+#ifdef LOG_STATUS
+    fprintf(stdout, "STATE: The crash thread is %d\n", n);
+#endif
 
     destroy_core_info(core_info);
     destroy_bin_info(binary_info);
