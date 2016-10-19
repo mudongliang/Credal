@@ -48,6 +48,6 @@ DEBUG: ELF Object
 DEBUG: The program headers for binary testsuites/simple/ld-2.23.so contain 7 entries
 DEBUG: The file name is testsuites/simple/ld-2.23.so. The base address is 0xb7785000 and the end address is 0xb77aa000
 STATE: Determining The Thread Leading To Crash
-Evidence: The PC Value Is 804840e
+Evidence: The PC value is 0x804840e
 Evidence: The instruction to which PC points is movzx	eax, [eax]. It Is Accessing Illegal Address
 DEBUG: The number of the crashing thread is 0

@@ -112,7 +112,7 @@ int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct 
 		return 0;
 	}
 #if defined(DEBUG) || defined(LOG_STATE)
-	fprintf(stdout, "Evidence: The PC Value Is %x\n", (unsigned)address);
+	fprintf(stdout, "Evidence: The PC value is 0x%x\n", (unsigned)address);
 	char line[64];
 	x86_format_insn(&inst, line, 64, intel_syntax);	
 	fprintf(stdout, "Evidence: The instruction to which PC points is %s. It Is Accessing Illegal Address\n", line);

@@ -46,6 +46,6 @@ DEBUG: ELF Object
 DEBUG: The program headers for binary testsuites/password/ld-2.24.so contain 7 entries
 DEBUG: The file name is testsuites/password/ld-2.24.so. The base address is 0xb7fdb000 and the end address is 0xb8000000
 STATE: Determining The Thread Leading To Crash
-Evidence: The PC Value Is 8048525
+Evidence: The PC value is 0x8048525
 Evidence: The instruction to which PC points is movzx	eax, [eax]. It Is Accessing Illegal Address
 DEBUG: The number of the crashing thread is 0

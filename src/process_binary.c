@@ -202,9 +202,9 @@ int process_bin_files(core_nt_file_info nt_file_info,individual_binary_info* bin
 			binary_info_set[bin_num].end_address = file_end_address(nt_file_info, prev_name); 
 #ifdef DEBUG
 			fprintf(stdout, "DEBUG: The file name is %s. The base address is 0x%x and the end address is 0x%x\n",
-                    binary_info_set[bin_num].bin_name, 
-                    binary_info_set[bin_num].base_address,
-                    binary_info_set[bin_num].end_address);
+            binary_info_set[bin_num].bin_name, 
+            binary_info_set[bin_num].base_address,
+            binary_info_set[bin_num].end_address);
 #endif
 		}else{
 			binary_info_set[bin_num].parsed = 0;
