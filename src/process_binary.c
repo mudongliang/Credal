@@ -75,7 +75,7 @@ int get_header_from_binary(char * path, individual_binary_info* bin_info){
         return 0;
 	}
                                       
-    if (( fd = open(path, O_RDONLY , 0)) < 0){
+    if ((fd = open(path, O_RDONLY , 0)) < 0){
         fprintf(stderr, "Error When Open ELF core file: %s\n", strerror(errno));
         return 0;
     }
@@ -116,7 +116,6 @@ int get_header_from_binary(char * path, individual_binary_info* bin_info){
 int process_one_bin_file(char* bin_name, individual_binary_info* bin_info){
 	int success=1;
 	char full_path[FILE_NAME_SIZE]; 
-    // please check if the summit of the path size and the file size exceeds the size limit 
 #ifdef LOG_STATE
 	fprintf(stdout, "STATE: Processing Binary File - %s \n", bin_name);	
 #endif

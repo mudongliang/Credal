@@ -123,7 +123,7 @@ int get_data_from_core(long int start, long int size, char *note_data){
 // determine if the address is executable
 int address_executable(elf_core_info* core_info, Elf32_Addr address){
 	int segment; 
-	if ((segment = address_segment(core_info, address))<0)
+	if ((segment = address_segment(core_info, address)) < 0)
 		return 0;
 	return (core_info->phdr[segment].p_flags & PF_X) ? 1:0;
 }
@@ -131,7 +131,7 @@ int address_executable(elf_core_info* core_info, Elf32_Addr address){
 // determine if the address is executable
 int address_writable(elf_core_info* core_info, Elf32_Addr address){
     int segment;
-    if ((segment = address_segment(core_info, address))<0)
+    if ((segment = address_segment(core_info, address)) < 0)
         return 0;
     return (core_info->phdr[segment].p_flags & PF_W) ? 1:0;
 }

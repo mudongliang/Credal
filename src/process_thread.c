@@ -5,6 +5,7 @@
 #include "disassemble.h"
 #include "thread_selection.h"
 
+// verify the current instruction is executable
 int pc_executable(elf_core_info* core_info, struct elf_prstatus thread){
 	int exec = 1;
 	Elf32_Addr address; 
@@ -18,6 +19,7 @@ int pc_executable(elf_core_info* core_info, struct elf_prstatus thread){
 	return exec;
 }
 
+// verify whether one operand is legal access
 int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatus thread, elf_core_info* core_info){
 	int legal = 1;
 	x86_ea_t* ea;
@@ -31,7 +33,7 @@ int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatu
 			break;
 		return 1;
 	case 1:
-		if ((op = x86_operand_2nd(insn)) && !(op->flags & op_implied) )
+		if ((op = x86_operand_2nd(insn)) && !(op->flags & op_implied))
 			break;
 		return 1;
 	case 2:
@@ -50,14 +52,14 @@ int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatu
 				target = base; 
 			else 
 				break;
-	        if (ea->index.name[0]) {
+	        if (ea->index.name[0]){
 				if(value_of_register(ea->index.name, &index, thread)){
 					target+=index * (unsigned int) ea->scale; 
 				}else{
 					break;
                 }
 			}
-			if (address_segment(core_info, target)<0){
+			if (address_segment(core_info, target) < 0){
 				legal = 0;
 				break;
 			}
@@ -72,6 +74,7 @@ int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatu
 	return legal;
 }
 
+// verify whether all the operands are legal access
 int op_legal_access(x86_insn_t *insn, struct elf_prstatus thread, elf_core_info* core_info){
 	unsigned i = 0; 
 	for (i=0; i<3; i++)
@@ -80,6 +83,7 @@ int op_legal_access(x86_insn_t *insn, struct elf_prstatus thread, elf_core_info*
 	return 1;
 }
 
+// verify whether the current instruction is legal access
 int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct elf_prstatus thread){
 	int legal_access; 
 	Elf32_Addr address;
@@ -90,7 +94,7 @@ int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct 
 	address = thread.pr_reg[EIP];
 	offset = get_offset_from_address(core_info, address);
 
-	if (offset == ME_NMAP || offset == ME_NMEM){
+	if ((offset == ME_NMAP) || (offset == ME_NMEM)){
 #ifdef DEBUG
 		fprintf(stdout, "DEBUG: The offset of this pc cannot be obtained\n");
 #endif
@@ -111,18 +115,21 @@ int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct 
 #endif
 		return 0;
 	}
+
 #if defined(DEBUG) || defined(LOG_STATE)
 	fprintf(stdout, "Evidence: The PC value is 0x%x\n", (unsigned)address);
 	char line[64];
 	x86_format_insn(&inst, line, 64, intel_syntax);	
 	fprintf(stdout, "Evidence: The instruction to which PC points is %s. It Is Accessing Illegal Address\n", line);
 #endif
+
 	if (!op_legal_access(&inst, thread, core_info)){
 		return 0;
 	}
 	return 1; 
 }
 
+// verify whether one thread crashes
 int is_thread_crash(elf_core_info* core_info, elf_binary_info* bin_info, struct elf_prstatus thread){
 	int crash  = 0;
 
