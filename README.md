@@ -1,6 +1,16 @@
 # AdvancedCredal
 Advanced Credal
 
+## Prerequirement
+
+    $ sudo apt-get install libelf1 libelf-dev
+
+library to read and write ELF files
+
+    $ sudo apt-get install libdisasm0 libdisasm-dev
+
+disassembler library for x86 code
+
 ## Usage
 
     $ ./main coredump binary_path library_path
