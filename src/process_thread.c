@@ -1,17 +1,15 @@
 #include <stdio.h>
 #include <libdis.h>
-#include "elf_core.h"
 #include "elf_binary.h"
 #include "access_memory.h"
 #include "disassemble.h"
 #include "thread_selection.h"
 
-
 int pc_executable(elf_core_info* core_info, struct elf_prstatus thread){
 	int exec = 1;
 	Elf32_Addr address; 
 	address = thread.pr_reg[EIP]; 
-	if(!address_executable(core_info, address)){
+	if (!address_executable(core_info, address)){
 #ifdef LOG_STATE
 		fprintf(stdout, "STATE: The PC Value %x of The Thread Is Illegal\n", (unsigned int)address);
 #endif
@@ -47,8 +45,8 @@ int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatu
 	switch(op->type){
 	case op_expression:
 		ea = &op->data.expression;
-		if(ea->base.name[0]){
-			if(value_of_register(ea->base.name, &base, thread))
+		if (ea->base.name[0]){
+			if (value_of_register(ea->base.name, &base, thread))
 				target = base; 
 			else 
 				break;
@@ -59,11 +57,11 @@ int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatu
 					break;
                 }
 			}
-			if(address_segment(core_info, target)<0){
+			if (address_segment(core_info, target)<0){
 				legal = 0;
 				break;
 			}
-			if((insn->type == insn_mov) && (op_num == 0) && !address_writable(core_info, target)){
+			if ((insn->type == insn_mov) && (op_num == 0) && !address_writable(core_info, target)){
 				legal = 0;
 				break;
 			}
@@ -76,8 +74,8 @@ int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatu
 
 int op_legal_access(x86_insn_t *insn, struct elf_prstatus thread, elf_core_info* core_info){
 	unsigned i = 0; 
-	for(i=0; i<3; i++)
-		if(!single_op_legal_access(insn, i, thread,core_info))
+	for (i=0; i<3; i++)
+		if (!single_op_legal_access(insn, i, thread,core_info))
 			return 0;
 	return 1;
 }
@@ -92,22 +90,22 @@ int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct 
 	address = thread.pr_reg[EIP];
 	offset = get_offset_from_address(core_info, address);
 
-	if(offset == ME_NMAP || offset == ME_NMEM){
+	if (offset == ME_NMAP || offset == ME_NMEM){
 #ifdef DEBUG
 		fprintf(stdout, "DEBUG: The offset of this pc cannot be obtained\n");
 #endif
 		return 0;
 	}
 	
-	if(offset == ME_NDUMP){
-		if(get_data_from_specified_file(core_info, bin_info, address, inst_buf, INST_LEN)<0)
+	if (offset == ME_NDUMP){
+		if (get_data_from_specified_file(core_info, bin_info, address, inst_buf, INST_LEN) < 0)
             return 0;
 	}
 
-	if(offset>=0)
+	if (offset >= 0)
 		get_data_from_core((Elf32_Addr)offset, INST_LEN, inst_buf);
 	
-	if(disasm_one_inst(inst_buf, INST_LEN, 0, &inst)<0){
+	if (disasm_one_inst(inst_buf, INST_LEN, 0, &inst) < 0){
 #ifdef DEBUG
 		fprintf(stdout, "DEBUG: The PC points to an error position\n");
 #endif
@@ -119,7 +117,7 @@ int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct 
 	x86_format_insn(&inst, line, 64, intel_syntax);	
 	fprintf(stdout, "Evidence: The instruction to which PC points is %s. It Is Accessing Illegal Address\n", line);
 #endif
-	if(!op_legal_access(&inst, thread, core_info)){
+	if (!op_legal_access(&inst, thread, core_info)){
 		return 0;
 	}
 	return 1; 
@@ -128,12 +126,12 @@ int pc_legal_access(elf_core_info* core_info, elf_binary_info *bin_info, struct 
 int is_thread_crash(elf_core_info* core_info, elf_binary_info* bin_info, struct elf_prstatus thread){
 	int crash  = 0;
 
-	if(!pc_executable(core_info, thread)){
+	if (!pc_executable(core_info, thread)){
 		crash = 1;
 		goto out;
 	}
 
-	if(!pc_legal_access(core_info,bin_info, thread)){
+	if (!pc_legal_access(core_info,bin_info, thread)){
 		crash = 1;
 		goto out;
 	}
@@ -152,15 +150,15 @@ int select_thread(elf_core_info* core_info, elf_binary_info * bin_info){
 #endif
 
     // multiple threads exist		
-    for(i=0; i<thread_num; i++){
-	    if(is_thread_crash(core_info, bin_info, core_info->note_info->core_thread.threads_status[i])){
+    for (i=0; i<thread_num; i++){
+	    if (is_thread_crash(core_info, bin_info, core_info->note_info->core_thread.threads_status[i])){
 		    crash_num = i;
 		    break;
 	    }
     }
 
 #ifdef DEBUG
-	if(crash_num == -1)
+	if (crash_num == -1)
 		fprintf(stderr, "Error: Could not determine the crash thread\n");
 	else
 		fprintf(stdout, "DEBUG: The number of the crashing thread is %d\n", crash_num);

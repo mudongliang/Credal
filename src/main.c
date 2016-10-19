@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "disassemble.h"
 #include "access_memory.h"
-#include "elf_core.h"
 #include "elf_binary.h"
 #include "thread_selection.h"
 

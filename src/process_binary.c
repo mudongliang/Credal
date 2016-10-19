@@ -7,7 +7,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
-#include "elf_core.h"
 #include "elf_binary.h"
 
 // destroy all the individual binary info structure
