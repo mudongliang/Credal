@@ -68,7 +68,7 @@ int value_of_register(char * reg, Elf32_Addr* value, struct elf_prstatus thread)
         goto out;
     }
     if(strcmp(reg, "esp") == 0){
-        *value = thread.pr_reg[ESP];
+        *value = thread.pr_reg[UESP];
         match = 1;
         goto out;
     }

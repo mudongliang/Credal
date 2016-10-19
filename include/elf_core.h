@@ -44,6 +44,9 @@ int destroy_core_info(elf_core_info*);
 elf_core_info* parse_core(char*);
 int process_segment(Elf*, elf_core_info*);
 int process_note_segment(Elf*, elf_core_info*);   
+
+#ifdef DEBUG
 void print_elf_type(Elf_Kind ek);
+#endif
 
 #endif
