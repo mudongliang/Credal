@@ -14,11 +14,11 @@ typedef struct individual_binary_info_struct{
 
 typedef struct elf_binary_info_struct{
 	size_t bin_lib_num;
-	individual_binary_info* binary_info_set;
+	individual_binary_info *binary_info_set;
 }elf_binary_info;	
 
-elf_binary_info* parse_binary(elf_core_info* core_info);
+elf_binary_info *parse_binary(elf_core_info *core_info);
 
-int destroy_bin_info(elf_binary_info * bin_info);
+int destroy_bin_info(elf_binary_info *bin_info);
 
 #endif

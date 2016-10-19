@@ -15,7 +15,7 @@
 #ifdef DEBUG
 // translate Elf_kind to meaningful output 
 void print_elf_type(Elf_Kind ek){
-    switch(ek){
+    switch (ek){
         case ELF_K_AR:
             fprintf(stdout, "DEBUG: Archive\n");
             break;
@@ -33,11 +33,11 @@ void print_elf_type(Elf_Kind ek){
 
 // destroy core_note_info structure inside core_info
 int destroy_note_info(core_note_info* note_info){
-    if(note_info->core_file.file_info){
+    if (note_info->core_file.file_info){
     	free(note_info->core_file.file_info);
     	note_info->core_file.file_info = NULL;		
     }
-    if(note_info->core_thread.threads_status){
+    if (note_info->core_thread.threads_status){
         free(note_info->core_thread.threads_status);
         note_info->core_thread.threads_status = NULL;
     }	
@@ -46,14 +46,14 @@ int destroy_note_info(core_note_info* note_info){
 
 // destroy elf_core_info structure
 int destroy_core_info(elf_core_info * core_info){
-    if(core_info && core_info->note_info){
+    if (core_info && core_info->note_info){
     	destroy_note_info(core_info->note_info);
     }
-    if(core_info && core_info->phdr){
+    if (core_info && core_info->phdr){
     	free(core_info->phdr);
     	core_info->phdr = NULL;
     }
-    if(core_info){
+    if (core_info){
     	free(core_info);	
     	core_info = NULL;
     }
@@ -72,7 +72,7 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
     int reg_num;
 
     // check if nt_file exists and count the number of threads in this process
-    while(note_data < note_end){
+    while (note_data < note_end){
     	memcpy(&n_entry, note_data, sizeof(Elf32_Nhdr));
         note_data += sizeof(Elf32_Nhdr);
         note_data += align_power(n_entry.n_namesz, 2);
@@ -87,7 +87,7 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
     }
 
     // prepare the core_info memory space
-    if((core_info->note_info = (core_note_info*)malloc(sizeof(core_note_info))) == NULL){
+    if ((core_info->note_info = (core_note_info*)malloc(sizeof(core_note_info))) == NULL){
     	return -1;
     }
 
@@ -99,20 +99,20 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
     //prepare the nt file entries
     core_info->note_info->core_file.nt_file_num = 0;
 
-    if(!nt_file_num) 
+    if (!nt_file_num) 
         core_info->note_info->core_file.file_info = NULL;
     else 
-        if((core_info->note_info->core_file.file_info = 
+        if ((core_info->note_info->core_file.file_info = 
             (nt_file_info*)malloc(nt_file_num * sizeof(nt_file_info))) != NULL){
     	    core_info->note_info->core_file.nt_file_num = nt_file_num;
         }
     	
     // prepare the threads entries
     core_info->note_info->core_thread.thread_num = 0;
-    if(!thread_num)
+    if (!thread_num)
     	core_info->note_info->core_thread.threads_status = NULL; 
     else
-        if((core_info->note_info->core_thread.threads_status = 
+        if ((core_info->note_info->core_thread.threads_status = 
     		(prstatus_t *)malloc( thread_num* sizeof(struct elf_prstatus))) != NULL)	
             core_info->note_info->core_thread.thread_num = thread_num; 
 
@@ -120,24 +120,24 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
 
     unsigned int thread_index = 0; 
 
-    while(note_data < note_end){
+    while (note_data < note_end){
         memcpy(&n_entry, note_data, sizeof(Elf32_Nhdr));
         note_data += sizeof(Elf32_Nhdr);
         note_data += align_power(n_entry.n_namesz, 2);
 
-    	if(n_entry.n_type == NT_PRPSINFO){
+    	if (n_entry.n_type == NT_PRPSINFO){
     	    core_info->note_info->core_process.exist = 1;
     	    memcpy(&core_info->note_info->core_process.process_info, note_data, sizeof(struct elf_prpsinfo));
     	}
 
-        if(n_entry.n_type == NT_PRSTATUS && core_info->note_info->core_thread.thread_num > 0){
+        if (n_entry.n_type == NT_PRSTATUS && core_info->note_info->core_thread.thread_num > 0){
             memcpy(&core_info->note_info->core_thread.threads_status[thread_index], note_data, sizeof(struct elf_prstatus));
 #ifdef DEBUG	
     	    int reg_num = 0;
     	    fprintf(stdout, "DEBUG: Info of No.%d thread\n", thread_index + 1);
     	    fprintf(stdout, "DEBUG: The number of pending signal is 0x%x\n", 
                     core_info->note_info->core_thread.threads_status[thread_index].pr_info.si_signo);
-    	    for(reg_num = 0; reg_num < ELF_NGREG; reg_num++){
+    	    for (reg_num = 0; reg_num < ELF_NGREG; reg_num++){
                 fprintf(stdout, "DEBUG: Register value - 0x%lx\n", 
                         (unsigned long)core_info->note_info->core_thread.threads_status[thread_index].pr_reg[reg_num]);
             }
@@ -145,7 +145,7 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
     	    thread_index++; 
         }
 
-        if(n_entry.n_type == NT_FILE && core_info->note_info->core_file.nt_file_num >0 ){
+        if (n_entry.n_type == NT_FILE && core_info->note_info->core_file.nt_file_num >0 ){
             unsigned int i;
             unsigned int index = 0;
             unsigned int fn=0, page_size = 0;
@@ -156,7 +156,7 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
     	    memcpy(&page_size, note_data + index, sizeof(unsigned int));
             index += sizeof(unsigned int);
 
-            for(i=0; i<fn; i++){
+            for (i=0; i<fn; i++){
                 memcpy(&start, note_data + index, sizeof(unsigned int));
                 index += 4; // 32bit
                 memcpy(&end, note_data + index, sizeof(unsigned int));
@@ -168,12 +168,12 @@ int process_note_info(elf_core_info * core_info, char* note_data, unsigned int s
     		    core_info->note_info->core_file.file_info[i].end = end;
     		    core_info->note_info->core_file.file_info[i].pos = pos;
             }
-            for(i=0; i<fn; i++){
+            for (i=0; i<fn; i++){
     	        strncpy(core_info->note_info->core_file.file_info[i].name, note_data + index, FILE_NAME_SIZE);
                 index += strlen(note_data + index) + 1;
             }
 #ifdef DEBUG
-    	    for(i=0; i<fn; i++)
+    	    for (i=0; i<fn; i++)
                 fprintf(stdout, "DEBUG: One mapped file name is %s, start from 0x%x, end at 0x%x, position is 0x%x\n",
                         core_info->note_info->core_file.file_info[i].name,
                         core_info->note_info->core_file.file_info[i].start,
@@ -198,23 +198,23 @@ int process_note_segment(Elf* elf, elf_core_info* core_info){
          return -1;
     }
 
-    for(i=0; i<phdr_num; i++){
-        if(gelf_getphdr(elf, i, &phdr) != &phdr){
+    for (i=0; i<phdr_num; i++){
+        if (gelf_getphdr(elf, i, &phdr) != &phdr){
     		fprintf(stderr, "Cannot get program header %s\n", elf_errmsg(-1)); 
     	    return -1;
         }
 
-        if(phdr.p_type == PT_NOTE){
+        if (phdr.p_type == PT_NOTE){
     	    start = phdr.p_offset;
             size = phdr.p_filesz;
     		char *note_data = (char*)malloc(size);
-    		if(!note_data){
+    		if (!note_data){
 #ifdef DEBUG
     		    fprintf(stderr, "Error when allocating new memory %s\n", strerror(errno));
 #endif
     			return -1;
     		}
-    		if(get_data_from_core(start, size, note_data) < -1){
+    		if (get_data_from_core(start, size, note_data) < -1){
 #ifdef DEBUG
       		    fprintf(stderr, "Error when reading contents from the core file\n");
 #endif
@@ -248,13 +248,13 @@ int process_segment(Elf* elf, elf_core_info* core_info){
 
     // store the headers into newly allocated memory space
     core_info->phdr = NULL;	
-    if((core_info->phdr = (GElf_Phdr *)malloc(phdr_num * sizeof(GElf_Phdr))) == NULL){
+    if ((core_info->phdr = (GElf_Phdr *)malloc(phdr_num * sizeof(GElf_Phdr))) == NULL){
         fprintf(stderr, "Cannot allocate memory for program header\n");
     	return -1;
     }
     memset(core_info->phdr, 0, phdr_num * sizeof(GElf_Phdr));	
-    for(i=0; i< phdr_num; i++){
-        if(gelf_getphdr(elf, i, &phdr) != &phdr){
+    for (i=0; i< phdr_num; i++){
+        if (gelf_getphdr(elf, i, &phdr) != &phdr){
 #ifdef DEBUG
     		fprintf(stderr, "Cannot get program header %s\n", elf_errmsg(-1));			
 #endif

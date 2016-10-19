@@ -15,12 +15,12 @@ typedef struct nt_file_info_struct{
 
 typedef struct nt_file_struct{
     size_t nt_file_num;
-    nt_file_info * file_info;
+    nt_file_info *file_info;
 }core_nt_file_info;
 
 typedef struct thread_info_struct{
     size_t thread_num;
-    struct elf_prstatus* threads_status;
+    struct elf_prstatus *threads_status;
 }core_thread_info;
 
 typedef struct process_info_struct{

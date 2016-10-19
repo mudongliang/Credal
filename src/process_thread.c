@@ -20,14 +20,14 @@ int pc_executable(elf_core_info* core_info, struct elf_prstatus thread){
 }
 
 // verify whether one operand is legal access
-int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatus thread, elf_core_info* core_info){
+int single_op_legal_access(x86_insn_t *insn, unsigned op_num, struct elf_prstatus thread, elf_core_info *core_info){
 	int legal = 1;
 	x86_ea_t* ea;
 	Elf32_Addr base, index, target;
 	int scale;
 	x86_op_t *op;
 
-	switch(op_num){
+	switch (op_num){
 	case 0:
 		if ((op = x86_operand_1st(insn)) && !(op->flags & op_implied))
 			break;

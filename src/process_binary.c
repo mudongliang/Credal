@@ -12,8 +12,8 @@
 // destroy all the individual binary info structure
 int destroy_binary_set(elf_binary_info * bin_info){
 	int i; 
-	for(i=0; i< bin_info->bin_lib_num; i++){
-		if(bin_info->binary_info_set[i].phdr){
+	for (i=0; i< bin_info->bin_lib_num; i++){
+		if (bin_info->binary_info_set[i].phdr){
 			free(bin_info->binary_info_set[i].phdr);
 			bin_info->binary_info_set[i].phdr=NULL;
 		}
@@ -25,10 +25,10 @@ int destroy_binary_set(elf_binary_info * bin_info){
 
 // destroy elf_binary_info structure
 int destroy_bin_info(elf_binary_info * bin_info){
-	if(bin_info && bin_info->binary_info_set){
+	if (bin_info && bin_info->binary_info_set){
 		destroy_binary_set(bin_info);
 	}
-	if(bin_info){
+	if (bin_info){
 		free(bin_info);
 		bin_info = NULL;
 	}
@@ -43,13 +43,13 @@ int count_bin_file_num(core_nt_file_info nt_file_info){
 	char *prev_name, *next_name;
 	prev_name = basename(nt_file_info.file_info[0].name);
 
-	if(strlen(prev_name) > 0) num++;
-	for(i=1; i< nt_file_info.nt_file_num; i++){
+	if (strlen(prev_name) > 0) num++;
+	for (i=1; i< nt_file_info.nt_file_num; i++){
 		next_name = basename(nt_file_info.file_info[i].name);
-		if(!strlen(next_name)) continue;
-		if(!strcmp(prev_name, next_name)){		
+		if (!strlen(next_name)) continue;
+		if (!strcmp(prev_name, next_name)){		
 			continue;
-        }else{
+        } else {
 			num++;
 			prev_name = next_name;
 		}		
@@ -88,7 +88,7 @@ int get_header_from_binary(char * path, individual_binary_info* bin_info){
 #ifdef DEBUG
 	print_elf_type(elf_kind(elf));                             
 #endif          
-	 if (elf_getphdrnum(elf , &phdr_num) != 0){
+	 if (elf_getphdrnum(elf, &phdr_num) != 0){
         fprintf(stderr, "Cannot get the number of program heder %s\n", elf_errmsg(-1));
         return 0;
 	}
@@ -123,13 +123,13 @@ int process_one_bin_file(char* bin_name, individual_binary_info* bin_info){
 	memset(full_path, 0, FILE_NAME_SIZE);
 	memcpy(full_path, get_bin_path(), strlen(get_bin_path()));
 	strcat(full_path, bin_name);
-	if(access(full_path, R_OK) == 0)
+	if (access(full_path, R_OK) == 0)
 		goto process_bin;
 	
     memset(full_path, 0, FILE_NAME_SIZE);
     memcpy(full_path, get_lib_path(), strlen(get_lib_path()));
     strcat(full_path, bin_name);
-    if(access(full_path, R_OK) == 0)
+    if (access(full_path, R_OK) == 0)
         goto process_bin;
 
 #ifdef DEBUG
@@ -144,7 +144,7 @@ process_bin:
 	fprintf(stdout, "DEBUG: Processing Binary File - %s\n", full_path);
 #endif
 
-	if(!get_header_from_binary(full_path, bin_info)){
+	if (!get_header_from_binary(full_path, bin_info)){
 #ifdef DEBUG
 		fprintf(stderr, "DEBUG: The program headers for binary %s is not correctly parsed\n", full_path);
 #endif
@@ -168,7 +168,7 @@ out:
 Elf32_Addr file_start_address(core_nt_file_info nt_file_info, char * name, Elf32_Addr min){
     Elf32_Addr min_start = min;
     int i;
-    for(i=0; i<nt_file_info.nt_file_num; i++){
+    for (i=0; i<nt_file_info.nt_file_num; i++){
         if(!strcmp(name, basename(nt_file_info.file_info[i].name)))
             if(nt_file_info.file_info[i].start < min_start)
                 min_start = nt_file_info.file_info[i].start;
@@ -179,7 +179,7 @@ Elf32_Addr file_start_address(core_nt_file_info nt_file_info, char * name, Elf32
 Elf32_Addr file_end_address(core_nt_file_info nt_file_info, char *name){
 	Elf32_Addr max_end = 0;
 	int i;
-	for(i=0; i < nt_file_info.nt_file_num; i++){
+	for (i=0; i < nt_file_info.nt_file_num; i++){
 		if(!strcmp(name, basename(nt_file_info.file_info[i].name)))
 			if(nt_file_info.file_info[i].end > max_end)
 				max_end = nt_file_info.file_info[i].end;
@@ -205,19 +205,19 @@ int process_bin_files(core_nt_file_info nt_file_info,individual_binary_info* bin
             binary_info_set[bin_num].base_address,
             binary_info_set[bin_num].end_address);
 #endif
-		}else{
+		} else{
 			binary_info_set[bin_num].parsed = 0;
 			binary_info_set[bin_num].phdr_num = 0;	
 			binary_info_set[bin_num].phdr = NULL;	
 		}
 		bin_num++;
 	}
-	for(i=1; i< nt_file_info.nt_file_num; i++){
+	for (i=1; i< nt_file_info.nt_file_num; i++){
 		next_name = basename(nt_file_info.file_info[i].name);
-		if(!strlen(next_name)) continue;
-		if(!strcmp(prev_name, next_name)){		
+		if (!strlen(next_name)) continue;
+		if (!strcmp(prev_name, next_name)){		
 			continue;
-        }else{
+        } else{
 			prev_name = next_name;
 			if (process_one_bin_file(prev_name, &binary_info_set[bin_num])){
 				binary_info_set[bin_num].parsed = 1;
@@ -229,8 +229,7 @@ int process_bin_files(core_nt_file_info nt_file_info,individual_binary_info* bin
                 binary_info_set[bin_num].base_address,
                 binary_info_set[bin_num].end_address);
 #endif
-			}
-			else{
+			} else{
 				binary_info_set[bin_num].parsed = 0;
 				binary_info_set[bin_num].phdr_num = 0;	
 				binary_info_set[bin_num].phdr = NULL;	
@@ -248,7 +247,7 @@ elf_binary_info* parse_binary(elf_core_info* core_info){
 	fprintf(stdout, "STATE: Process Binary Files Mapped into Address Spapce\n");
 #endif
 
-	if(!core_info->note_info->core_file.nt_file_num){
+	if (!core_info->note_info->core_file.nt_file_num){
 #ifdef DEBUG
 		fprintf(stdout, "DEBUG: There is no NT file, could not generate binary information\n");
 #endif
@@ -258,7 +257,7 @@ elf_binary_info* parse_binary(elf_core_info* core_info){
 	bin_num = count_bin_file_num(core_info->note_info->core_file);
 	elf_binary_info* binary_info = (elf_binary_info*)malloc(sizeof(elf_binary_info));
 
-	if(!binary_info){
+	if (!binary_info){
 #ifdef DEBUG
 		fprintf(stderr, "ERROR: memory allocation does not work\n");
 #endif
@@ -268,7 +267,7 @@ elf_binary_info* parse_binary(elf_core_info* core_info){
 	binary_info->bin_lib_num = bin_num; 
 	binary_info->binary_info_set = (individual_binary_info*)malloc(bin_num * sizeof(individual_binary_info));
 
-	if(!binary_info->binary_info_set){
+	if (!binary_info->binary_info_set){
 #ifdef DEBUG
 		fprintf(stderr, "ERROR: memory allocation does not work\n");
 #endif		
