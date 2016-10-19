@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]){
     if (argc != 4){
         fprintf(stderr, "Help: %s coredump binary_path library_path\n", argv[0]);
-        fprintf(stderr, "      You must make sure that all the library files are in the directory defined by library_path\n");
+        fprintf(stderr, "      Make sure that all the library files are in the directory defined by library_path\n");
         exit(0);
     }
     set_core_path(argv[1]);
