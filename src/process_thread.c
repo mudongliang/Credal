@@ -11,7 +11,7 @@ int pc_executable(elf_core_info* core_info, struct elf_prstatus thread){
 	address = thread.pr_reg[EIP]; 
 	if (!address_executable(core_info, address)){
 #ifdef LOG_STATE
-		fprintf(stdout, "STATE: The PC Value %x of The Thread Is Illegal\n", (unsigned int)address);
+		fprintf(stdout, "STATE: The PC value 0x%x of thread is illegal\n", (unsigned int)address);
 #endif
 		exec = 0;	
 	}

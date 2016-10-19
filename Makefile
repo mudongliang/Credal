@@ -39,6 +39,7 @@ $(ELF_SRC_DIR)/disassemble.o: $(ELF_SRC_DIR)/disassemble.c
 
 test:
 	./main $(TESTSUITES_DIR)/simple/core $(TESTSUITES_DIR)/simple/ $(TESTSUITES_DIR)/simple > $(TESTSUITES_DIR)/simple/result
+	./main $(TESTSUITES_DIR)/password/core $(TESTSUITES_DIR)/password/ $(TESTSUITES_DIR)/password/ > $(TESTSUITES_DIR)/password/result
 clean:
 	rm -f $(ELF_SRC_DIR)/*.o
 	rm -f main

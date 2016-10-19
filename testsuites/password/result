@@ -1,0 +1,51 @@
+DEBUG: ELF Object
+STATE: Parsing Core File: testsuites/password/core
+DEBUG: The number of segment in the core file is 15
+DEBUG: Info of No.1 thread
+DEBUG: The number of pending signal is 0xb
+DEBUG: Register value - 0xbffff220
+DEBUG: Register value - 0xfbad0084
+DEBUG: Register value - 0xb7fb7870
+DEBUG: Register value - 0x2
+DEBUG: Register value - 0xb7fb6000
+DEBUG: Register value - 0xbffff208
+DEBUG: Register value - 0x41414141
+DEBUG: Register value - 0x7b
+DEBUG: Register value - 0x7b
+DEBUG: Register value - 0x0
+DEBUG: Register value - 0x33
+DEBUG: Register value - 0xffffffff
+DEBUG: Register value - 0x8048525
+DEBUG: Register value - 0x73
+DEBUG: Register value - 0x10246
+DEBUG: Register value - 0xbffff1e0
+DEBUG: Register value - 0x7b
+DEBUG: One mapped file name is /home/mdl/Work/testsuites/password/password, start from 0x8048000, end at 0x8049000, position is 0x0
+DEBUG: One mapped file name is /home/mdl/Work/testsuites/password/password, start from 0x8049000, end at 0x804a000, position is 0x0
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.24.so, start from 0xb7e03000, end at 0xb7fb4000, position is 0x0
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.24.so, start from 0xb7fb4000, end at 0xb7fb6000, position is 0x1b0
+DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.24.so, start from 0xb7fb6000, end at 0xb7fb7000, position is 0x1b2
+DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.24.so, start from 0xb7fdb000, end at 0xb7ffd000, position is 0x0
+DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.24.so, start from 0xb7ffe000, end at 0xb7fff000, position is 0x22
+DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.24.so, start from 0xb7fff000, end at 0xb8000000, position is 0x23
+STATE: Process Binary Files Mapped into Address Spapce
+DEBUG: The number of different binary files is 3
+STATE: Processing Binary File - password 
+DEBUG: Processing Binary File - testsuites/password/password
+DEBUG: ELF Object
+DEBUG: The program headers for binary testsuites/password/password contain 8 entries
+DEBUG: The file name is testsuites/password/password. The base address is 0x8048000 and the end address is 0x804a000
+STATE: Processing Binary File - libc-2.24.so 
+DEBUG: Processing Binary File - testsuites/password/libc-2.24.so
+DEBUG: ELF Object
+DEBUG: The program headers for binary testsuites/password/libc-2.24.so contain 10 entries
+DEBUG: The file name is testsuites/password/libc-2.24.so. The base address is 0xb7e03000 and the end address is 0xb7fb7000
+STATE: Processing Binary File - ld-2.24.so 
+DEBUG: Processing Binary File - testsuites/password/ld-2.24.so
+DEBUG: ELF Object
+DEBUG: The program headers for binary testsuites/password/ld-2.24.so contain 7 entries
+DEBUG: The file name is testsuites/password/ld-2.24.so. The base address is 0xb7fdb000 and the end address is 0xb8000000
+STATE: Determining The Thread Leading To Crash
+Evidence: The PC Value Is 8048525
+Evidence: The instruction to which PC points is movzx	eax, [eax]. It Is Accessing Illegal Address
+DEBUG: The number of the crashing thread is 0
