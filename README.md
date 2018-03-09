@@ -1,5 +1,5 @@
-# AdvancedCredal
-Advanced Credal
+# Credal
+Credal
 
 ## Prerequirement
 
@@ -13,7 +13,7 @@ disassembler library for x86 code
 
 ## Usage
 
-    $ ./main coredump binary_path library_path
+    $ ./main coredump
 
 ### Compile
 
@@ -65,35 +65,11 @@ typedef struct core_info_struct{
 }elf_core_info; 
 ```
 
-### `elf_binary_info` data structure:
-
-```
-typedef struct individual_binary_info_struct{
-    char bin_name[FILE_NAME_SIZE];
-    int parsed;
-    size_t phdr_num;
-    GElf_Phdr *phdr;
-    Elf32_Addr base_address;
-    Elf32_Addr end_address; 
-}individual_binary_info; 
-
-typedef struct elf_binary_info_struct{
-    size_t bin_lib_num;
-    individual_binary_info *binary_info_set;
-}elf_binary_info;
-```
-
 ## Corresponding APIs
 
 - common.c
   - void set_core_path(char *path);
   - char *get_core_path(void);
-  - void set_bin_path(char *path);
-  - char *get_bin_path(void);
-  - void set_lib_path(char *path);
-  - char *get_lib_path(void);
-- disassemble.c
-  - int disasm_one_inst(char *buf, size_t buf_size, int pos, x86_insn_t *inst);
 - access_memory.c
   - int value_of_register(char *reg, Elf32_Addr *value, struct elf_prstatus thread );
   - int address_segment(elf_core_info *core_info, Elf32_Addr address);
@@ -102,13 +78,8 @@ typedef struct elf_binary_info_struct{
   - int address_executable(elf_core_info *core_info, Elf32_Addr address);
   - int address_writable(elf_core_info *core_info, Elf32_Addr address);
   - int get_data_from_specified_file(elf_core_info *core_info, elf_binary_info *bin_info,  Elf32_Addr address, char *buf, size_t buf_size);
-- elf_binary.c
-  - elf_binary_info *parse_binary(elf_core_info *core_info);
-  - int destroy_bin_info(elf_binary_info *bin_info);
 - elf_core.c
   - int destroy_core_info(elf_core_info*);
   - elf_core_info* parse_core(char*);
   - int process_segment(Elf*, elf_core_info*);
   - int process_note_segment(Elf*, elf_core_info*);
-- thread_selection.c
-  - int select_thread(elf_core_info *core_info, elf_binary_info *bin_info);
