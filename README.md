@@ -1,5 +1,5 @@
-# AdvancedCredal
-Advanced Credal
+# Credal
+Credal
 
 ## Prerequirement
 
