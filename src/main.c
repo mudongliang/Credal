@@ -1,9 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "disassemble.h"
-#include "access_memory.h"
-#include "elf_binary.h"
-#include "thread_selection.h"
+#include "elf_core.h"
 
 int main(int argc, char *argv[]){
     if (argc != 2){

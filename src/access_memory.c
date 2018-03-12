@@ -6,7 +6,6 @@
 #include <errno.h>
 #include <string.h>
 #include "elf_core.h"
-#include "elf_binary.h"
 #include "access_memory.h"
 
 //get the value by the name of register
@@ -134,66 +133,4 @@ int address_writable(elf_core_info* core_info, Elf32_Addr address){
     if ((segment = address_segment(core_info, address)) < 0)
         return 0;
     return (core_info->phdr[segment].p_flags & PF_W) ? 1 : 0;
-}
-
-// get the memory from the file recorded by the NT_FILE information. 
-int get_data_from_specified_file(elf_core_info* core_info, elf_binary_info* bin_info,  Elf32_Addr address, char * buf, size_t buf_size){
-	int data_obtained = 0;
-	int file_num =-1;
-	int phdr_num = -1;
-	int i, fd;
-	char *file_path;
-	Elf32_Addr offset;
-	Elf32_Addr reduce = 0;
-	individual_binary_info* target_file = 0;
-
-	for(i = 0; i<bin_info->bin_lib_num; i++){
-		if (bin_info->binary_info_set[i].parsed)
-    		if ((address >= bin_info->binary_info_set[i].base_address) && (address < bin_info->binary_info_set[i].end_address)){
-			    file_num = i;
-			    break;
-		    } 
-	}
-	if (file_num == -1)
-		goto out;
-
-	target_file = &bin_info->binary_info_set[file_num];
-	file_path = target_file->bin_name; 
-
-	if (target_file->phdr[0].p_vaddr < target_file->base_address)
-		reduce = target_file -> base_address;	
-
-	for(i=0; i<target_file->phdr_num; i++){
-		if ((address-reduce)>=target_file->phdr[i].p_vaddr && (address-reduce)<(target_file->phdr[i].p_vaddr+target_file->phdr[i].p_memsz)){
-			phdr_num = i; 
-			break;
-		}
-	}
-	if (phdr_num == -1)
-		goto out;
-
-#ifdef DEBUG
-	fprintf(stdout, "DEBUG: The file mapped to address %u is %s\n", address, file_path);	
-#endif
-	offset = (address-reduce) - target_file->phdr[phdr_num].p_vaddr +  target_file->phdr[phdr_num].p_offset;
-	if ((fd = open(file_path, O_RDONLY, 0)) < 0){
-#ifdef DEBUG
-		fprintf(stderr, "Core file open error %s\n", strerror(errno));
-#endif
-		return -1;
-	}
-	if (lseek(fd, offset, SEEK_SET) < 0){
-		fprintf(stderr, "Core file lseek error %s\n", strerror(errno));
-		close(fd);
-		return -1;
-	}
-    if (read(fd, buf, buf_size) < 0){
-		fprintf(stderr, "Core file open error %s\n", strerror(errno));
-		close(fd);
-		return -1;
-	}
-	close(fd);
-	return 0;
-out: 
-	return data_obtained;
 }

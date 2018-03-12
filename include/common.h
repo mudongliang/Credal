@@ -19,10 +19,4 @@ extern char *lib_path;
 void set_core_path(char *path);
 char *get_core_path(void);
 
-void set_bin_path(char *path);
-char *get_bin_path(void);
-
-void set_lib_path(char *path);
-char *get_lib_path(void);
-
 #endif
