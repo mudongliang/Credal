@@ -28,24 +28,3 @@ DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.24.so, start from 0xb7
 DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.24.so, start from 0xb7fdb000, end at 0xb7ffd000, position is 0x0
 DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.24.so, start from 0xb7ffe000, end at 0xb7fff000, position is 0x22
 DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.24.so, start from 0xb7fff000, end at 0xb8000000, position is 0x23
-STATE: Process Binary Files Mapped into Address Spapce
-DEBUG: The number of different binary files is 3
-STATE: Processing Binary File - password 
-DEBUG: Processing Binary File - testsuites/password/password
-DEBUG: ELF Object
-DEBUG: The program headers for binary testsuites/password/password contain 8 entries
-DEBUG: The file name is testsuites/password/password. The base address is 0x8048000 and the end address is 0x804a000
-STATE: Processing Binary File - libc-2.24.so 
-DEBUG: Processing Binary File - testsuites/password/libc-2.24.so
-DEBUG: ELF Object
-DEBUG: The program headers for binary testsuites/password/libc-2.24.so contain 10 entries
-DEBUG: The file name is testsuites/password/libc-2.24.so. The base address is 0xb7e03000 and the end address is 0xb7fb7000
-STATE: Processing Binary File - ld-2.24.so 
-DEBUG: Processing Binary File - testsuites/password/ld-2.24.so
-DEBUG: ELF Object
-DEBUG: The program headers for binary testsuites/password/ld-2.24.so contain 7 entries
-DEBUG: The file name is testsuites/password/ld-2.24.so. The base address is 0xb7fdb000 and the end address is 0xb8000000
-STATE: Determining The Thread Leading To Crash
-Evidence: The PC value is 0x8048525
-Evidence: The instruction to which PC points is movzx	eax, [eax]. It Is Accessing Illegal Address
-DEBUG: The number of the crashing thread is 0

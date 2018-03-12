@@ -30,24 +30,3 @@ DEBUG: One mapped file name is /lib/i386-linux-gnu/libc-2.23.so, start from 0xb7
 DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start from 0xb7785000, end at 0xb77a7000, position is 0x0
 DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start from 0xb77a8000, end at 0xb77a9000, position is 0x22
 DEBUG: One mapped file name is /lib/i386-linux-gnu/ld-2.23.so, start from 0xb77a9000, end at 0xb77aa000, position is 0x23
-STATE: Process Binary Files Mapped into Address Spapce
-DEBUG: The number of different binary files is 3
-STATE: Processing Binary File - simple 
-DEBUG: Processing Binary File - testsuites/simple/simple
-DEBUG: ELF Object
-DEBUG: The program headers for binary testsuites/simple/simple contain 9 entries
-DEBUG: The file name is testsuites/simple/simple. The base address is 0x8048000 and the end address is 0x804b000
-STATE: Processing Binary File - libc-2.23.so 
-DEBUG: Processing Binary File - testsuites/simple/libc-2.23.so
-DEBUG: ELF Object
-DEBUG: The program headers for binary testsuites/simple/libc-2.23.so contain 10 entries
-DEBUG: The file name is testsuites/simple/libc-2.23.so. The base address is 0xb75b2000 and the end address is 0xb7765000
-STATE: Processing Binary File - ld-2.23.so 
-DEBUG: Processing Binary File - testsuites/simple/ld-2.23.so
-DEBUG: ELF Object
-DEBUG: The program headers for binary testsuites/simple/ld-2.23.so contain 7 entries
-DEBUG: The file name is testsuites/simple/ld-2.23.so. The base address is 0xb7785000 and the end address is 0xb77aa000
-STATE: Determining The Thread Leading To Crash
-Evidence: The PC value is 0x804840e
-Evidence: The instruction to which PC points is movzx	eax, [eax]. It Is Accessing Illegal Address
-DEBUG: The number of the crashing thread is 0
